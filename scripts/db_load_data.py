@@ -1,28 +1,3 @@
-import mysql.connector
-
-mydb = mysql.connector.connect(
-  host="localhost",
-  user="bg",
-  password="bg_data",
-  database="bg_database"
-)
-
-cursor = mydb.cursor()
-
-def executeScriptsFromFile(filename):
-    # Open and read the file as a single buffer
-    fd = open(filename, 'r')
-    sqlFile = fd.read()
-    fd.close()
-
-    # all SQL commands (split on ';')
-    sqlCommands = sqlFile.split(';')
-
-    # Execute every command from the input file
-    for command in sqlCommands:
-        # This will skip and report errors
-        # For example, if the tables do not yet exist, this will skip over
-        # the DROP TABLE commands
-        cursor.execute(command)
-
-executeScriptsFromFile('./db/migration/sql/V01__schema_test.sql')
+version https://git-lfs.github.com/spec/v1
+oid sha256:6f8067a77e71dc9e62f8f3cb0170f40e9659d4cf1343beb30bbcaa7625c15ba7
+size 724
