@@ -1,3 +1,18 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:0005eedf310c5d8396199f09bd4edaa1a488b9b227289b66560ec060faf49b98
-size 461
+#!/bin/bash
+set -e
+
+echo "Creating docker network and volume"
+docker network create --driver=bridge bg_data_net
+docker volume create bg_data_vol
+
+echo "Building mysql image"
+docker build -t bg_db db
+echo "Building flyway image"
+docker build -t bg_flyway db/migration
+
+./scripts/linmac/db_start.sh
+echo "Sleeping to let MySQL Start"
+sleep 30
+echo "Starting flyway"
+docker run --rm --name bg_flyway --net bg_data_net bg_flyway migrate
+# python3 ../db_load_data.py

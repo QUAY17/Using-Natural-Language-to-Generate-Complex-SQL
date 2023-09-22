@@ -1,3 +1,3 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:d1feaef3a8f6f646006960ecec8592cbecb48aa9249dc54c595b288770819088
-size 140
+@echo off
+
+docker run --net bg_data_net --name bg_db -p 3306:3306 --mount type=volume,source=bg_data_vol,destination=/var/lib/mysql -d bg_db

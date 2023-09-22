@@ -1,3 +1,8 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:96173d97ed3854f5fc4d06480ec026ef72e757bb7219a1d98c106b2d8b200fa0
-size 182
+FROM mysql
+
+CMD ["--max-allowed-packet=1024M", "--max_connections=10000"]
+
+ENV MYSQL_ROOT_PASSWORD bg_data
+ENV MYSQL_USER bg
+ENV MYSQL_PASSWORD bg_data
+ENV MYSQL_DATABASE bg_database
