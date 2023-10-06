@@ -84,3 +84,85 @@ Once the database has been set up and is running, you can use any tool you'd lik
     Username:   bg
     Password:   bg_data
     Database:   bg_database
+
+# Example SQL Queries
+
+What counties are included in the tax data?
+
+```sql
+SELECT *
+FROM entity
+WHERE id IN (
+        SELECT entity_id
+        FROM (
+                SELECT *
+                FROM
+                    entity_category_rel ecr
+                    JOIN entity_category ec on ecr.category_id = ec.id
+            ) AS categories
+        WHERE
+            categories.name = "County"
+    );
+```
+
+---
+
+What was the total retail trade industry tax paid for Albuquerque in April 2018
+
+```sql
+SELECT total_tax_paid
+FROM industry_entity_tax
+WHERE report_id IN (
+        SELECT id
+        FROM report
+        WHERE
+            reporting_month = "2018-04-01"
+    )
+    AND industry_entity_id IN (
+        SELECT id
+        FROM industry_entity
+        WHERE entity_id IN (
+                SELECT id
+                FROM entity
+                WHERE
+                    name LIKE "%Albuquerque%"
+            )
+            AND `name` LIKE "%Retail Trade%"
+    )
+    AND `name` = "Total";
+```
+
+---
+
+What was the maximum construction industry taxable receipts for Bernalillo County in 2016?
+
+```sql
+SELECT MAX(taxable_receipts) as max_taxable_receipts
+FROM industry_entity_tax
+WHERE report_id IN (
+        SELECT id
+        FROM report
+        WHERE
+            reporting_month BETWEEN "2016-01-01" AND "2016-12-31"
+    )
+    AND industry_entity_id IN (
+        SELECT id
+        FROM industry_entity
+        WHERE entity_id IN (
+                SELECT id
+                FROM entity
+                WHERE
+                    name LIKE "%Bernalillo County%"
+            )
+            AND `name` LIKE "%Construction%"
+    )
+    AND `name` = "Total";
+```
+
+---
+
+What municipality had the largest overall industry tax paid for March 2019?
+
+```
+Still working on this one...
+```
