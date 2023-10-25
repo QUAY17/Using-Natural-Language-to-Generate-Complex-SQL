@@ -90,7 +90,7 @@ months = [
   "December"
 ]
 
-date_max = (2,2)
+date_max = (1,2)
 
 prompt = "What is the <tax_element> for <industry> industry in <region> for <date>?"
 
