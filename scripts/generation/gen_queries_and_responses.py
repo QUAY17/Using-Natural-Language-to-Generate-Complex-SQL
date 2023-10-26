@@ -143,7 +143,7 @@ def make_query_string(region, industry, tax_element, year, month_i):
 
 def generate_sql_as_answer():
 
-    with open('gen_queries_out_sql.csv', 'w', newline='') as csvfile:
+    with open('SQLQueries.csv', 'w', newline='') as csvfile:
         csvwriter = csv.writer(csvfile)
         # Writing the headers to the CSV
         csvwriter.writerow(["input", "output", "text", "sqlquery"])
