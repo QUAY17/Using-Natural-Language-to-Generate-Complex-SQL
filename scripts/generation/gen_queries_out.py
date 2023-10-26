@@ -141,6 +141,36 @@ def make_query_string(region, industry, tax_element, year, month_i):
     filled_query = query.replace("<region>", region).replace("<industry>", industry).replace("<tax_element>", tax_element_db_column).replace("<date>", date_string)
     return filled_query
 
+def generate_sql_as_answer():
+
+    with open('gen_queries_out_sql.csv', 'w', newline='') as csvfile:
+        csvwriter = csv.writer(csvfile)
+        # Writing the headers to the CSV
+        csvwriter.writerow(["input", "output", "text", "sqlquery"])
+
+        for region in regions:
+            for industry in industries:
+                for tax_element in industry_tax_elements:
+                    for year_i in range(len(years)):
+                        for month_i in range(len(months)):
+                            if year_i == date_max[0] and month_i > date_max[1]:
+                                break
+
+                            year = years[year_i]
+                            month = months[month_i]
+
+                            prompt_string = make_question_string(region, industry, tax_element, year, month)
+                            query_string = make_query_string(region, industry, tax_element, year, month_i)
+
+                            # The output includes the phrase "Your SQL query: {sql query}"
+                            output = f"Execute this SQL query: {query_string}"
+
+                            # The text column reflects the interaction with SQL as the output
+                            text_format = f"###Human:\n{prompt_string}\n\n###Assistant:\n{output}"
+
+                            line = [prompt_string, output, text_format, query_string]
+                            csvwriter.writerow(line)
+
 def generate():
     # Connect to the MySQL database
     conn = mysql.connector.connect(
@@ -186,4 +216,4 @@ def generate():
     cursor.close()
     conn.close()
 
-generate()
+generate_sql_as_answer()
