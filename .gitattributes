@@ -1,3 +1,5 @@
 *.jar filter=lfs diff=lfs merge=lfs -text
 *.sql filter=lfs diff=lfs merge=lfs -text
 llama2/data/SQLQueries.csv filter=lfs diff=lfs merge=lfs -text
+llama2/data/format_v1 filter=lfs diff=lfs merge=lfs -text
+llama2/data/format_v2 filter=lfs diff=lfs merge=lfs -text
