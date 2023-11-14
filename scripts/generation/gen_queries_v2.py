@@ -163,7 +163,7 @@ def generate_sql_as_answer():
                             query_string = make_query_string(region, industry, tax_element, year, month_i)
 
                             # The schema is essentially the formatted SQL query with placeholders
-                            schema = query.replace("<region>", region).replace("<industry>", industry).replace("<tax_element>", db_column_mapping[tax_element]).replace("<date>", year + "-" + str(month_i+1).rjust(2,"0") + "-01")
+                            schema_query = query
 
                             # The output includes the phrase "Your SQL query: {sql query}"
                             output = f"Execute this SQL query: {query_string}"
@@ -171,7 +171,7 @@ def generate_sql_as_answer():
                             # The text column reflects the interaction with SQL as the output
                             text_format = f"###Human:\n{prompt_string}\n\n###Assistant:\n{output}"
 
-                            line = [prompt, prompt_string, schema, query_string, text_format]
+                            line = [prompt, prompt_string, schema_query, query_string, text_format]
                             csvwriter.writerow(line)
 
 
