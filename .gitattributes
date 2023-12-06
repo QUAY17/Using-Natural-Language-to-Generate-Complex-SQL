@@ -14,4 +14,4 @@ llama2/data filter=lfs diff=lfs merge=lfs -text
 llama2/data/format_v3 filter=lfs diff=lfs merge=lfs -text
 llama2/data/format_v3/train_1k_chunk_14.csv filter=lfs diff=lfs merge=lfs -text
 llama2/data/format_v3/SQLQueriesV3.csv filter=lfs diff=lfs merge=lfs -text
-data/train_inference.csv filter=lfs diff=lfs merge=lfs -text
+llama2/data/train_inference.csv filter=lfs diff=lfs merge=lfs -text
