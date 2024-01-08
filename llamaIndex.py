@@ -33,8 +33,6 @@ sql_database = SQLDatabase(engine, sample_rows_in_table_info=2)
 
 #print(sql_database.table_info)
 print(sql_database._usable_tables)
-print(list(sql_database._all_tables))
-print(sql_database.get_single_table_info("entity"))
   
 OPEN_API_KEY = os.environ["OPENAI_API_KEY"]
 
@@ -62,6 +60,8 @@ query_engine = NLSQLTableQueryEngine(
 query_str = "how many entity are there?"
 response = query_engine.query(query_str)
 print(response.response)
+print(response.metadata['result'])
+print(token_counter.total_llm_token_count)
 
 """
 print()
