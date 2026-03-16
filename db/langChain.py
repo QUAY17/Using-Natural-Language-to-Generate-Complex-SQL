@@ -146,7 +146,7 @@ Answer: Final answer here
 """
 
 llm = LlamaCpp(
-    model_path="/Users/quay17/Desktop/GitLocal/NLP/llama2/llama-2-7b.Q4_K_M.gguf", 
+    model_path=os.environ.get("LLAMA_MODEL_PATH", "./llama2/llama-2-7b.Q4_K_M.gguf"),
     verbose=True, 
     n_ctx=2048)
 
