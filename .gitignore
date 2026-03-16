@@ -146,6 +146,16 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# Flyway config (contains DB credentials)
+flyway.conf
+
+# Java JARs
+*.jar
+
+# LLM model files
+*.gguf
+*.bin
+
 # pytype static type analyzer
 .pytype/
 

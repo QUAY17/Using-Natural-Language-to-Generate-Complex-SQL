@@ -1,4 +1,6 @@
-dataset: gross receipt taxes of New Mexico 
+# Using Natural Language to Generate Complex SQL
+
+dataset: gross receipt taxes of New Mexico
 time period: 2009 - 2023
 
 The project premise is to fine tune an open source LLM like Llama 2 with a specific dataset.
@@ -10,7 +12,32 @@ This tool would enable users to quickly understand features of the data like rev
 
 Further work on this project includes predictive analytics for state tax data.
 
-# Example SQL Queries
+## Approaches
+
+### Fine-Tuning Llama 2
+
+A locally hosted Llama 2 model is fine-tuned on a custom dataset of natural language questions paired with their corresponding SQL queries. Training data is generated from the database schema and covers queries across regions, industries, tax elements, and date ranges.
+
+### LangChain
+
+LangChain is used with a local LlamaCpp model to create a SQL database chain. A custom prompt template provides the database schema as context, enabling the LLM to generate and execute SQL queries against the database from natural language input.
+
+### LlamaIndex
+
+LlamaIndex provides a `NLSQLTableQueryEngine` that connects directly to the database and translates natural language questions into SQL queries using an LLM, with built-in token counting for cost tracking.
+
+## Setup
+
+1. Copy `.env.example` to `.env` and fill in your database credentials and API keys:
+   ```
+   cp .env.example .env
+   ```
+2. Install dependencies:
+   ```
+   pip install python-dotenv sqlalchemy pymysql llama-index langchain langchain-experimental
+   ```
+
+## Example SQL Queries
 
 What counties are included in the tax data?
 

@@ -1,38 +1,20 @@
-import mysql.connector
+import os
+from dotenv import load_dotenv
 from sqlalchemy import create_engine
-from sqlalchemy.sql import text
 from langchain.llms import LlamaCpp
 from langchain.utilities import SQLDatabase
 from langchain_experimental.sql import SQLDatabaseChain
 from langchain.prompts import PromptTemplate
 
-"""db = mysql.connector.connect(host='127.0.0.1',database='bg_database', user='bg', password='bg_data')
-db = mysql.connect(host='127.0.0.1',database='bg_database', user='bg', password='bg_data')
-try:
-    db = mysql.connect(
-        host='127.0.0.1',
-        user='bg',
-        password='bg_data',
-        database='bg_database'
-    )
-    print("Successfully connected to the database")
-except mysql.Error as err:
-    print(f"Error: {err}")
-"""
+load_dotenv()
+
+db_user = os.environ["DB_USER"]
+db_password = os.environ["DB_PASSWORD"]
+db_host = os.environ["DB_HOST"]
+db_name = os.environ["DB_NAME"]
 
 # Create an SQLAlchemy engine
-engine = create_engine("mysql+mysqlconnector://bg:bg_data@127.0.0.1/bg_database")
-
-# Test the database connection
-try:
-    # Connect and execute a simple query
-    with engine.connect() as connection:
-        query = text("SELECT 1")
-        result = connection.execute(query)
-        for row in result:
-            print("Connection successful, got row:", row)
-except Exception as e:
-    print("Error connecting to database:", e)
+engine = create_engine(f"mysql+mysqlconnector://{db_user}:{db_password}@{db_host}/{db_name}")
 
 # Create an instance of SQLDatabase
 db = SQLDatabase(engine)
